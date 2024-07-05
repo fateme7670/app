@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { profileTabs } from "@/constants";
 import Image from "next/image";
-import ThreadCard from "@/components/cards/ThreadCard";
+import ThreadCard from "@/components/shared/ThreadCard";
 
 const page = async ({ params }: { params: { id: string } }) => {
   const user = await currentUser();

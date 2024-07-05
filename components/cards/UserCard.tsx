@@ -12,6 +12,8 @@ interface Params {
 }
 const UserCard = ({ id, name, username, image, personTypes }: Params) => {
   const router = useRouter();
+  const isCommunity = personTypes === "Community";
+
   return (
     <article className="user-card">
       <div className="user-card_avatar">
@@ -28,11 +30,15 @@ const UserCard = ({ id, name, username, image, personTypes }: Params) => {
           <p className='text-small-medium text-gray-1'>@{username}</p>
         </div>
     
-      <Button
-      className="user-card_btn"
-      onClick={()=>{
-          router.push(`/profile/${id}`)
-      }}
+        <Button
+        className='user-card_btn'
+        onClick={() => {
+          if (isCommunity) {
+            router.push(`/communities/${id}`);
+          } else {
+            router.push(`/profile/${id}`);
+          }
+        }}
       >
           view
       </Button>

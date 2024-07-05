@@ -41,8 +41,9 @@ const page = async ({ params }: { params: { id: string } }) => {
       <div className="mt-10">
         {thread.children.map((item: any) => (
           <PostCard
+          key={item._id}
             id={item._id}
-            currentUserId={item.id}
+            currentUserId={user.id}
             parentId={item.parentId}
             content={item.text}
             author={item.author}

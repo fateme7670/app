@@ -1,7 +1,8 @@
 import React from "react";
-import PostCard from "./PostCard";
+import PostCard from "../cards/PostCard";
 import { fetchUser, fetchUserPosts } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
+import { fetchCommunityPosts } from "@/lib/actions/community.actions";
 interface Params {
   userId: string;
   accountId: string;
@@ -34,8 +35,14 @@ interface Result {
   }[];
 }
 const ThreadCard = async ({ userId, accountId, accountType }: Params) => {
-  const result = await fetchUserPosts(userId);
-  
+  let result: Result;
+
+  if (accountType === "Community") {
+    result = await fetchCommunityPosts(accountId);
+  } else {
+    result = await fetchUserPosts(accountId);
+  }
+
   if (!result) {
     redirect("/");
   }

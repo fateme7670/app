@@ -27,6 +27,7 @@ interface Props {
 
 
 function PostThreads({userId}:Props) {
+  const {organization}=useOrganization()
     const router = useRouter();
     const pathname = usePathname();
     const form = useForm<z.infer<typeof thearedValidation>>({
@@ -37,10 +38,12 @@ function PostThreads({userId}:Props) {
         },
       });
       const onSubmit = async (values: z.infer<typeof thearedValidation>) => {
+        console.log('organization',organization?.id);
+        
         await createThreads({
           text: values.threads,
-          author: userId,
-          communityId:  null,
+          author: JSON.parse(userId),
+          communityId:  organization ? organization.id:null,
           path: pathname,
         });
     
@@ -55,7 +58,7 @@ function PostThreads({userId}:Props) {
         <FormField
           control={form.control}
           name='threads'
-          render={({ field }) => (
+          render={({field }) => (
             <FormItem className='flex w-full flex-col gap-3'>
               <FormLabel className='text-base-semibold text-light-2'>
                 Enter Your Message:

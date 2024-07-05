@@ -39,7 +39,7 @@ function AccountProfile({ user, btnTitle }: Props) {
   const [files, setFiles] = useState<File[]>([]);
   const { startUpload } = useUploadThing("media");
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof uservalidation>>({
     resolver: zodResolver(uservalidation),
     defaultValues: {
       profile_photo: user?.image || "",
@@ -69,11 +69,11 @@ function AccountProfile({ user, btnTitle }: Props) {
       image: values.profile_photo,
     });
 
-    // if (pathname === "/profile/edit") {
-    //   router.back();
-    // } else {
-    //   router.push("/");
-    // }
+    if (pathname === "/profile/edit") {
+      router.back();
+    } else {
+      router.push("/");
+    }
   };
 
   const handleImage = (
